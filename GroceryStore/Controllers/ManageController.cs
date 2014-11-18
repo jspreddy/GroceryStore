@@ -43,7 +43,7 @@ namespace GroceryStore.Controllers
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : "";
 
-            var model = new IndexViewModel
+            var model = new AccountSettingsViewModel
             {
                 HasPassword = HasPassword(),
                 Logins = await UserManager.GetLoginsAsync(User.Identity.GetUserId()),
@@ -81,8 +81,7 @@ namespace GroceryStore.Controllers
             return View(model);
         }
 
-
-#region Helpers
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -124,6 +123,7 @@ namespace GroceryStore.Controllers
             Error
         }
 
-#endregion
+        #endregion
+
     }
 }

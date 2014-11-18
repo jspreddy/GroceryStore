@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using GroceryStore.Models;
+using GroceryStore.StringTags;
 
 namespace GroceryStore
 {
@@ -36,7 +37,6 @@ namespace GroceryStore
             manager.PasswordValidator = new PasswordValidator
             {
                 RequiredLength = 6,
-                RequireNonLetterOrDigit = true,
                 RequireDigit = true
             };
 
@@ -71,6 +71,62 @@ namespace GroceryStore
         public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options, IOwinContext context)
         {
             return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
+        }
+    }
+
+    public class ApplicationDbInitializer : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
+    {
+        protected override void Seed(ApplicationDbContext context)
+        {
+            SeedUsers(context);
+            base.Seed(context);
+        }
+
+        private void SeedUsers(ApplicationDbContext context)
+        {
+            var UserManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
+            var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+
+            // create all roles.
+            string[] roles = ApplicationRoles.GetAllRoles();
+            foreach(string role in roles){
+                if (!RoleManager.RoleExists(role)) RoleManager.Create(new IdentityRole(role));
+            }
+
+            //create admin user.
+            string admin_pwd = "admin123";
+            var adminUser = new ApplicationUser();
+            adminUser.Email = "admin@test.com";
+            adminUser.UserName = adminUser.Email;
+
+            var adminResult = UserManager.Create(adminUser, admin_pwd);
+            
+            if (adminResult.Succeeded)
+            {
+                UserManager.AddToRole(adminUser.Id, ApplicationRoles.User.R);
+                UserManager.AddToRole(adminUser.Id, ApplicationRoles.User.W);
+                UserManager.AddToRole(adminUser.Id, ApplicationRoles.User.D);
+
+                UserManager.AddToRole(adminUser.Id, ApplicationRoles.Inventory.R);
+                UserManager.AddToRole(adminUser.Id, ApplicationRoles.Inventory.W);
+                UserManager.AddToRole(adminUser.Id, ApplicationRoles.Inventory.D);
+            }
+
+            //create a test user
+            var user = new ApplicationUser();
+            user.Email = "test@test.com";
+            user.UserName = user.Email;
+
+            string user_pwd = "test123";
+            var userResult = UserManager.Create(user,user_pwd);
+
+            if (userResult.Succeeded)
+            {
+                UserManager.AddToRole(user.Id, ApplicationRoles.User.R);
+
+                UserManager.AddToRole(user.Id, ApplicationRoles.Inventory.R);
+                UserManager.AddToRole(user.Id, ApplicationRoles.Inventory.W);
+            }
         }
     }
 }
