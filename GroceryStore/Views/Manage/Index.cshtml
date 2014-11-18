@@ -1,6 +1,6 @@
-﻿@model GroceryStore.Models.IndexViewModel
+﻿@model GroceryStore.Models.AccountSettingsViewModel
 @{
-    ViewBag.Title = "Manage";
+    ViewBag.Title = "Account Settings";
 }
 
 <h2>@ViewBag.Title.</h2>
@@ -16,10 +16,6 @@
             @if (Model.HasPassword)
             {
                 @Html.ActionLink("Change your password", "ChangePassword")
-            }
-            else
-            {
-                @Html.ActionLink("Create", "SetPassword")
             }
             ]
         </dd>
