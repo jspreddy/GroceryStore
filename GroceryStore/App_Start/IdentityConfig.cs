@@ -104,12 +104,12 @@ namespace GroceryStore
             if (adminResult.Succeeded)
             {
                 UserManager.AddToRole(adminUser.Id, ApplicationRoles.User.R);
-                UserManager.AddToRole(adminUser.Id, ApplicationRoles.User.W);
-                UserManager.AddToRole(adminUser.Id, ApplicationRoles.User.D);
+                UserManager.AddToRole(adminUser.Id, ApplicationRoles.User.RW);
+                UserManager.AddToRole(adminUser.Id, ApplicationRoles.User.RWD);
 
                 UserManager.AddToRole(adminUser.Id, ApplicationRoles.Inventory.R);
-                UserManager.AddToRole(adminUser.Id, ApplicationRoles.Inventory.W);
-                UserManager.AddToRole(adminUser.Id, ApplicationRoles.Inventory.D);
+                UserManager.AddToRole(adminUser.Id, ApplicationRoles.Inventory.RW);
+                UserManager.AddToRole(adminUser.Id, ApplicationRoles.Inventory.RWD);
             }
 
             //create a test user
@@ -123,9 +123,8 @@ namespace GroceryStore
             if (userResult.Succeeded)
             {
                 UserManager.AddToRole(user.Id, ApplicationRoles.User.R);
-
                 UserManager.AddToRole(user.Id, ApplicationRoles.Inventory.R);
-                UserManager.AddToRole(user.Id, ApplicationRoles.Inventory.W);
+                UserManager.AddToRole(user.Id, ApplicationRoles.Inventory.RW);
             }
         }
     }

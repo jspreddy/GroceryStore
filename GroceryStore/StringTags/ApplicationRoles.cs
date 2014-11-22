@@ -11,32 +11,32 @@ namespace GroceryStore.StringTags
         public static class User
         {
             //read
-            public static string R = "user_r";
+            public const string R = "user_r";
             //write / create / update
-            public static string W = "user_w";
+            public const string RW = "user_rw";
             //delete
-            public static string D = "user_d";
+            public const string RWD = "user_rwd";
         }
 
         public static class Inventory
         {
             //read
-            public static string R = "inven_r";
+            public const string R = "inven_r";
             //write / create / update
-            public static string W = "inven_w";
+            public const string RW = "inven_rw";
             //delete
-            public static string D = "inven_d";
+            public const string RWD = "inven_rwd";
         }
 
         public static string[] GetAllRoles()
         {
             string[] roles = { 
                              User.R,
-                             User.W,
-                             User.D,
+                             User.RW,
+                             User.RWD,
                              Inventory.R,
-                             Inventory.W,
-                             Inventory.D
+                             Inventory.RW,
+                             Inventory.RWD
                              };
 
             return roles;

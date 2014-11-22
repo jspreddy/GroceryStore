@@ -29,5 +29,7 @@ namespace GroceryStore.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<InventoryViewModel> Inventory { get; set; }
     }
 }
