@@ -1,0 +1,32 @@
+﻿@model IEnumerable<GroceryStore.Models.InventoryViewModel>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Id)</td>
+            <td>@Html.DisplayNameFor(model => model.Name)</td>
+            <td>@Html.DisplayNameFor(model => model.Description)</td>
+            <td>@Html.DisplayNameFor(model => model.SKU)</td>
+            <td>@Html.DisplayNameFor(model => model.Brand)</td>
+            <td>@Html.DisplayNameFor(model => model.DateRecieved)</td>
+            <td>@Html.DisplayNameFor(model => model.QuantityRecieved)</td>
+            <td>@Html.DisplayNameFor(model => model.QuantityOnHand)</td>
+            <td>@Html.DisplayNameFor(model => model.LastEdited)</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                <td>@Html.DisplayFor(modelItem => item.SKU)</td>
+                <td>@Html.DisplayFor(modelItem => item.Brand)</td>
+                <td>@Html.DisplayFor(modelItem => item.DateRecieved)</td>
+                <td>@Html.DisplayFor(modelItem => item.QuantityRecieved)</td>
+                <td>@Html.DisplayFor(modelItem => item.QuantityOnHand)</td>
+                <td>@Html.DisplayFor(modelItem => item.LastEdited)</td>
+            </tr>
+        }
+    </tbody>
+</table>

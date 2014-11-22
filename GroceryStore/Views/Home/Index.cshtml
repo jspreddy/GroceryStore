@@ -1,6 +1,17 @@
-﻿@{
+﻿@model GroceryStore.Models.HomePageViewModel
+@{
     ViewBag.Title = "Home Page";
 }
 <div class="row">
-    
+    <h2>Inventory</h2>
+    @if(ViewData.ModelState.IsValid == false){
+        @Html.ValidationSummary("Fix the following and re submit.", new { @class = "text-danger" })
+    }
+    @{
+        Html.RenderAction("RenderCreateInventoryPartial", new { inventory = Model.CreateInventoryItem });
+        Html.RenderAction("RenderInventoryListPartial", new { inventoryItems = Model.InventoryList });
+    }
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
 </div>
